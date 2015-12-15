@@ -19,7 +19,7 @@
 FROM java:7
 
 # Ignite version
-ENV GRIDGAIN_VERSION 1.4.1
+ENV GRIDGAIN_VERSION 1.5.1-b1
 
 WORKDIR /opt/gridgain
 
