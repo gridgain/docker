@@ -19,18 +19,18 @@
 FROM java:7
 
 # Ignite version
-ENV GRIDGAIN_VERSION 7.5.4
+ENV GRIDGAIN_VERSION 1.5.3
 
 WORKDIR /opt/gridgain
 
-ADD http://www.gridgain.com/media/gridgain-enterprise-fabric-$GRIDGAIN_VERSION.zip /opt/gridgain/gridgain-enterprise.zip
+ADD http://www.gridgain.com/media/gridgain-community-fabric-$GRIDGAIN_VERSION.zip /opt/gridgain/gridgain-community.zip
 
 # Ignite home
-ENV IGNITE_HOME /opt/gridgain/gridgain-enterprise-fabric-$GRIDGAIN_VERSION
+ENV IGNITE_HOME /opt/gridgain/gridgain-community-fabric-$GRIDGAIN_VERSION
 
-RUN unzip gridgain-enterprise.zip
+RUN unzip gridgain-community.zip
 
-RUN rm gridgain-enterprise.zip
+RUN rm gridgain-community.zip
 
 # Copy sh files and set permission
 ADD ./run.sh $IGNITE_HOME/
