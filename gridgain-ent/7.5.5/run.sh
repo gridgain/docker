@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,28 +16,39 @@
 # limitations under the License.
 #
 
-# Start from a Java image.
-FROM java:7
+if [ ! -z "$OPTION_LIBS" ]; then
+  IFS=, LIBS_LIST=("$OPTION_LIBS")
 
-# Ignite version
-ENV GRIDGAIN_VERSION 7.5.1-b1
+  for lib in ${LIBS_LIST[@]}; do
+    cp -r $IGNITE_HOME/libs/optional/"$lib"/* \
+        $IGNITE_HOME/libs/
+  done
+fi
 
-WORKDIR /opt/gridgain
+if [ ! -z "$EXTERNAL_LIBS" ]; then
+  IFS=, LIBS_LIST=("$EXTERNAL_LIBS")
 
-ADD http://www.gridgain.com/media/gridgain-enterprise-fabric-$GRIDGAIN_VERSION.zip /opt/gridgain/gridgain-enterprise.zip
+  for lib in ${LIBS_LIST[@]}; do
+    echo $lib >> temp
+  done
 
-# Ignite home
-ENV IGNITE_HOME /opt/gridgain/gridgain-enterprise-fabric-$GRIDGAIN_VERSION
+  wget -i temp -P $IGNITE_HOME/libs
 
-RUN unzip gridgain-enterprise.zip
+  rm temp
+fi
 
-RUN rm gridgain-enterprise.zip
+if [ ! -z $LICENCE_URL ]; then
+    wget -O $IGNITE_HOME/gridgain-license.xml $LICENCE_URL
+fi
 
-# Copy sh files and set permission
-ADD ./run.sh $IGNITE_HOME/
+QUIET=""
 
-RUN chmod +x $IGNITE_HOME/run.sh
+if [ "$IGNITE_QUIET" == "false" ]; then
+	QUIET="-v"
+fi
 
-CMD $IGNITE_HOME/run.sh
-
-EXPOSE 11211 47100 47500 49112
+if [ -z $CONFIG_URI ]; then
+  $IGNITE_HOME/bin/ignite.sh $QUIET
+else
+  $IGNITE_HOME/bin/ignite.sh $QUIET $CONFIG_URI
+fi
