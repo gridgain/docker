@@ -19,7 +19,7 @@
 FROM openjdk:8
 
 # Ignite version
-ENV GRIDGAIN_VERSION 8.1.6
+ENV GRIDGAIN_VERSION 8.1.4
 
 WORKDIR /opt/gridgain
 
