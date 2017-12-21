@@ -19,7 +19,7 @@
 FROM openjdk:8
 
 # Ignite version
-ENV GRIDGAIN_VERSION 8.1.8
+ENV GRIDGAIN_VERSION 8.1.9
 
 WORKDIR /opt/gridgain
 
@@ -40,3 +40,4 @@ RUN chmod +x $IGNITE_HOME/run.sh
 CMD $IGNITE_HOME/run.sh
 
 EXPOSE 11211 47100 47500 49112
+
