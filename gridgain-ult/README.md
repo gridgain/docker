@@ -1,0 +1,5 @@
+# GridGain Ultimate Edition
+
+The GridGain Ultimate Edition includes all the features of the [GridGain Enterprise Edition](https://www.gridgain.com/products/software/enterprise-edition) plus a [Cluster Snapshots](https://www.gridgain.com/products/software/ultimate-edition/cluster-snapshots) feature for automated backups of the GridGain datastore. When using GridGain with the Persistent Store feature, the system provides the capabilities of a distributed transactional SQL database. The system holds the full dataset on disk with all or a portion of the dataset maintained in memory. SQL queries can be run on the combined memory/disk dataset which provides fast data processing which is improved by increasing the amount of data held in memory.
+ 
+The GridGain Ultimate Edition is available to GridGain Support customers. For more information, visit the [GridGain Ultimate Edition](https://www.gridgain.com/products/software/ultimate-edition) home page or [Pricing](https://www.gridgain.com/products/pricing) page or [Contact Us](http://www.gridgain.com/contact) now.

@@ -15,28 +15,38 @@
 # limitations under the License.
 #
 
-# Start from a Java image.
-FROM java:7
+# Start from JDK 8 based on Alpine Linux image (~5Mb)
+FROM openjdk:8-jre-alpine
 
-# Ignite version
-ENV GRIDGAIN_VERSION 1.3.3
+# Set Product name
+ENV PRODUCT gridgain
+# Set GridGain version
+ENV GRIDGAIN_VERSION 2.3.2
+# Set GridGain edition
+ENV GRIDGAIN_EDITION professional
+# Set Ignite binary name
+ENV GRIDGAIN_BIN ${PRODUCT}-${GRIDGAIN_EDITION}-fabric-${GRIDGAIN_VERSION}
+# Set Ignite home directory
+ENV IGNITE_HOME /opt/${PRODUCT}/${GRIDGAIN_BIN}
 
-WORKDIR /opt/gridgain
+# Set working directory
+WORKDIR /opt/${PRODUCT}
 
-ADD http://www.gridgain.com/media/gridgain-community-fabric-$GRIDGAIN_VERSION.zip /opt/gridgain/gridgain-community.zip
+# Add missing software
+RUN apk --update add \
+    bash \
+    && rm -rfv /var/cache/apk/*
 
-# Ignite home
-ENV IGNITE_HOME /opt/gridgain/gridgain-community-fabric-$GRIDGAIN_VERSION
-
-RUN unzip gridgain-community.zip
-
-RUN rm gridgain-community.zip
+# Get binary archive
+RUN set -x && \
+    wget -c "https://gridgain.com/media/${GRIDGAIN_BIN}.zip" -O gridgain.zip && \
+    unzip gridgain.zip && \
+    rm -rfv gridgain.zip
 
 # Copy sh files and set permission
-ADD ./run.sh $IGNITE_HOME/
+COPY ./run.sh ${IGNITE_HOME}/
 
-RUN chmod +x $IGNITE_HOME/run.sh
-
-CMD $IGNITE_HOME/run.sh
+CMD ${IGNITE_HOME}/run.sh
 
 EXPOSE 11211 47100 47500 49112
+
