@@ -21,7 +21,7 @@ FROM openjdk:8-jre-alpine
 # Set Product name
 ENV PRODUCT gridgain
 # Set GridGain version
-ENV GRIDGAIN_VERSION 2.4.4
+ENV GRIDGAIN_VERSION 2.4.9
 # Set GridGain edition
 ENV GRIDGAIN_EDITION professional
 # Set Ignite binary name
